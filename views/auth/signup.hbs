@@ -1,0 +1,74 @@
+<nav class="navbar navbar-light bg-lignt" id="topmenu">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar2">
+  </button>
+</nav>
+
+<div id="totalcontainer">
+
+  <div id="logincontainer">
+    <div class="card" id="logincard">
+      <div class="card-body" id="logincardbody">
+       
+        <form action="/signup" method="POST" id="form">
+          <h2>Sign up</h2>
+          <label for="username">Username</label>
+          <input id="username" type="text" name="username" placeholder="Your username">
+          <br><br>
+          <label for="password">Password</label>
+          <input id="password" type="password" name="password" placeholder="********">
+          {{#if message}}
+          <div class="error-message">{{ message }}</div>
+          {{/if}}
+          <br><br>
+          <button type="submit">Create account</button>
+          <p class="account-message">
+            Do you already have an account?
+            <a href="/">Login</a>
+          </p>
+        </form>
+
+      </div>
+    </div>
+  </div>   
+
+  <!-- Photo Grid -->
+  <div id="photogrid">
+    <div class="row"> 
+      <div class="column">
+        <img src="/images/polcadots.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/rocks.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/falls2.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/paris.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/nature.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/mist.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/paris.jpg" style="width:100%">
+      </div>
+      <div class="column">
+        <img src="https://www.w3schools.com/w3images/underwater.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/ocean.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/wedding.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/mountainskies.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/rocks.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/underwater.jpg" style="width:100%">
+      </div>  
+      <div class="column">
+        <img src="https://www.w3schools.com/w3images/wedding.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/rocks.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/falls2.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/paris.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/nature.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/mist.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/paris.jpg" style="width:100%">
+      </div>
+      <div class="column">
+        <img src="https://www.w3schools.com/w3images/underwater.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/ocean.jpg" style="width:100%">
+        <img src="/images/estrellas.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/mountainskies.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/rocks.jpg" style="width:100%">
+        <img src="https://www.w3schools.com/w3images/underwater.jpg" style="width:100%">
+      </div>
+    </div>
+  <div>
+
+</div>    
