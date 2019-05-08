@@ -3,6 +3,9 @@ const router  = express.Router();
 /** Login**/const passport = require("passport");
 /** Loging Private Pages **/const ensureLogin = require("connect-ensure-login");
 /** User model **/const User = require("../models/user");
+const Picture = require('../models/picture');
+const multer  = require('multer');
+const mongoose = require('mongoose');
 /******************SIGNUP********************/
 // Bcrypt to encrypt passwords
 const bcrypt = require("bcrypt");
@@ -63,14 +66,6 @@ router.post("/", passport.authenticate("local", {
 }));
 /******************LOGGIN********************/
 
-/********LOGGIN PRIVATE ROUTES **************/
-
-router.get("/home", ensureLogin.ensureLoggedIn('/'), (req, res) => {
-  res.render("home", { user: req.user });
-});
-
-/********LOGGIN PRIVATE ROUTES **************/
-
 /********LOGOUT *****************************/
 
 router.get("/logout", (req, res) => {
@@ -78,5 +73,43 @@ router.get("/logout", (req, res) => {
   res.redirect("/");
 });
 /********LOGOUT ******************************/
+
+/********LOGGIN PRIVATE ROUTES **************/
+
+router.get("/home", ensureLogin.ensureLoggedIn('/'), (req, res) => {
+
+  Picture.find({owner:{$ne: mongoose.Types.ObjectId(req.user._id) }})
+  .then( pictures=> {
+
+    console.log(pictures);
+    console.log(req.user );
+        
+        res.render('home',{pictures :pictures, user: req.user })
+      })
+  .catch(error => {
+    next(error)
+  })
+  
+});
+
+/********LOGGIN PRIVATE ROUTES **************/
+
+
+const upload = multer({ dest: '../public/uploads/' });
+
+router.post('/upload', upload.single('photo'), (req, res) => {
+console.log(req._id);
+  const pic = new Picture({
+    name: req.body.name,
+    path: `/uploads/${req.file.filename}`,
+    originalName: req.file.originalname,
+    owner: req.body._id
+  });
+
+  pic.save((err) => {
+      res.redirect('/home');
+  });
+});
+
 
 module.exports = router;

@@ -1,0 +1,22 @@
+.grid {
+  display: grid;
+  width: 70%;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: 1px; }
+
+.grid__item {
+  grid-row-end: span var(--row-span, 20); }
+
+img {
+  width: 100%; }
+
+.cover {
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover; }
+
+.prueba {
+  display: none; }
+
+/*# sourceMappingURL=style.css.map */
