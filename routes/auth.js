@@ -80,18 +80,59 @@ router.get("/home", ensureLogin.ensureLoggedIn('/'), (req, res) => {
 
   Picture.find({owner:{$ne: mongoose.Types.ObjectId(req.user._id) }})
   .then( pictures=> {
+    
+    console.log(pictures);
+    console.log(req.user);
+        
+        res.render('home',{pictures :pictures,user: req.user })
+      })
+  .catch(error => {
+    next(error)
+  })
+ /* Picture.find((err, pictures) => {
 
     console.log(pictures);
     console.log(req.user );
         
         res.render('home',{pictures :pictures, user: req.user })
-      })
-  .catch(error => {
-    next(error)
-  })
+      })*/
   
 });
 
+router.get("/picture/:id", ensureLogin.ensureLoggedIn('/'), (req, res) => {
+
+  Picture.findById(mongoose.Types.ObjectId(req.params.id))
+  .then( picture=> {
+
+   User.findById(mongoose.Types.ObjectId(picture.owner))
+   .then(theuser => {
+    
+    console.log('THE USER'+theuser);
+    console.log(picture);
+    console.log(req.user);
+        
+        res.render('picture',{theuser: theuser, picture: picture, user: req.user })
+      })
+   .catch(error => {
+    console.log(error);
+   })
+
+
+
+
+      })
+  .catch(error => {
+   console.log(error);
+  })
+ /* Picture.find((err, pictures) => {
+
+    console.log(pictures);
+    console.log(req.user );
+        
+        res.render('home',{pictures :pictures, user: req.user })
+      })*/
+  
+});
 /********LOGGIN PRIVATE ROUTES **************/
 
 
