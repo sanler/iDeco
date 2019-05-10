@@ -38,7 +38,7 @@
 <!-- Photo Grid -->
 
   {{#each pictures}}
-    <img class="prueba" src="{{ this.path }}" alt="{{ this.originalName }}" />
+    <img id="{{ this._id }}"  class="prueba" src="{{ this.path }}" alt="{{ this.originalName }}" />
   {{/each}}
 
 <div class="grid"></div>
