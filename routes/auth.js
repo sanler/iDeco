@@ -81,6 +81,7 @@ router.get("/home", ensureLogin.ensureLoggedIn('/'), (req, res) => {
   Picture.find({owner:{$ne: mongoose.Types.ObjectId(req.user._id) }})
   .then( pictures=> {
     
+
     console.log(pictures);
     console.log(req.user);
         
