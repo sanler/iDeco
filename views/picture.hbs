@@ -8,10 +8,13 @@
                 <a class="nav-link" href="/logout">LogOut</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="/retrato">Retrato</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="/paisaje">Paisaje</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/abstracta">Abstracta</a>
             </li>
         </ul>
     </div>
@@ -25,7 +28,7 @@
        <p>Photo Rating:</p> 
        <p>Location:</p>
        <p>Categorias:</p>
-       <p>Description:</p>
+       <p>Description:{{ picture.description }}</p>
 
         </div>     
 
@@ -33,7 +36,9 @@
 <div class="containerPic">
   <div class="container_thePicture" >
   <img  class="pic" id="{{ picture._id }}"  src="{{ picture.path }}" alt="{{ picture.originalName }}" />
+  <a>Me gusta</a>
   </div>
+  
 </div>
  <div class="card card2" >
         <div class="card-body" >

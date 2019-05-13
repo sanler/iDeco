@@ -4,6 +4,8 @@ const router  = express.Router();
 /** Loging Private Pages **/const ensureLogin = require("connect-ensure-login");
 /** User model **/const User = require("../models/user");
 const Picture = require('../models/picture');
+const Category = require('../models/category');
+
 const multer  = require('multer');
 const mongoose = require('mongoose');
 /******************SIGNUP********************/
@@ -55,6 +57,36 @@ next(error)
 
 /******************LOGGIN********************/
 router.get("/", (req, res, next) => {
+   /*const cat1='Retrato';
+   const cat2='Paisaje';
+   const cat3='Abstracta';
+
+   const newCategory1 = new Category({
+    name:cat1
+  });
+  const newCategory2 = new Category({
+    name:cat2
+  }); 
+  const newCategory3 = new Category({
+    name:cat3
+  });
+
+  newCategory1.save((err) => {
+    if (err) {
+      res.render("auth/signup", { message: "Something went wrong" });
+    } 
+  });
+  newCategory2.save((err) => {
+    if (err) {
+      res.render("auth/signup", { message: "Something went wrong" });
+    }
+  });
+  newCategory3.save((err) => {
+    if (err) {
+      res.render("auth/signup", { message: "Something went wrong" });
+    } 
+  });
+console.log(newCategory1);*/
   res.render("auth/login",{ "message": req.flash("error") });
 });
 
@@ -100,6 +132,46 @@ router.get("/home", ensureLogin.ensureLoggedIn('/'), (req, res) => {
   
 });
 
+router.get("/profile", ensureLogin.ensureLoggedIn('/'), (req, res) => {
+      
+  Picture.find({owner: mongoose.Types.ObjectId(req.user._id) })
+  .then( pictures=> {
+    
+
+    console.log(pictures);
+    console.log(req.user);
+        
+        res.render('profile',{pictures :pictures,user: req.user })
+      })
+  .catch(error => {
+    next(error)
+  })
+     
+});
+
+router.get("/mypicupload", ensureLogin.ensureLoggedIn('/'), (req, res) => {
+      
+
+
+  Category.find({owner: mongoose.Types.ObjectId(req.user._id) })
+  .then( pictures=> {
+    
+
+    console.log(pictures);
+    console.log(req.user);
+        
+        res.render('profile',{pictures :pictures,user: req.user })
+      })
+  .catch(error => {
+    next(error)
+  })
+     
+        res.render('subirfoto',{user: req.user });
+     
+ 
+     
+});
+
 router.get("/picture/:id", ensureLogin.ensureLoggedIn('/'), (req, res) => {
 
   Picture.findById(mongoose.Types.ObjectId(req.params.id))
@@ -134,7 +206,7 @@ router.get("/picture/:id", ensureLogin.ensureLoggedIn('/'), (req, res) => {
       })*/
   
 });
-/********LOGGIN PRIVATE ROUTES **************/
+/******** LOGGIN PRIVATE ROUTES **************/
 
 
 const upload = multer({ dest: '../public/uploads/' });
@@ -145,6 +217,7 @@ console.log(req._id);
     name: req.body.name,
     path: `/uploads/${req.file.filename}`,
     originalName: req.file.originalname,
+    description: req.body.description,
     owner: req.body._id
   });
 

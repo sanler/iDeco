@@ -1,0 +1,15 @@
+<section>
+  <h2>Upload your photo</h2>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="text" name="name">
+    <input type="file" name="photo">
+    <textarea name="description" placeholder="Descripcion"></textarea>
+    <select>
+      <option value="retrato">Retrato</option>
+      <option value="paisaje">Paisaje</option>
+      <option value="abstracta">Abtracta</option>
+    </select> 
+    <input type="text" name="_id" value="{{this.user._id}}">
+    <input type="submit" value="Save">
+  </form>
+</section>

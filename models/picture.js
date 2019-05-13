@@ -5,8 +5,9 @@ const pictureSchema = new Schema({
   name: String,
   path: String,
   originalName: String,
-  owner:  { type : Schema.Types.ObjectId, ref: 'user' } ,
-
+  description:{ type : String , maxlength: 200},
+  category:String,
+  owner:  { type : Schema.Types.ObjectId, ref: 'user' } 
 }, {
   timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 });

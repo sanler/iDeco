@@ -62,5 +62,13 @@ const generateImages = (el, count = 10) => {
   for (let i = 0; i < count; i++) images.appendChild(newImage(i));
   el.appendChild(images);
 };
+document.getElementById("megusta").onclick=()=>{
+
+
+alert('hola!!!');
+
+
+}
 
 generateImages(grid, miArraydefotos.length);
+

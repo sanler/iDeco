@@ -8,10 +8,13 @@
                 <a class="nav-link" href="/logout">LogOut</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="/retrato">Retrato</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
+                <a class="nav-link" href="/paisaje">Paisaje</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/abstracta">Abstracta</a>
             </li>
         </ul>
     </div>
@@ -26,8 +29,8 @@
                 <div id="myDescription">
                     <div id="userName"><h1 id="myName">{{user.username}}</h1><p>Me encanta el mundo de la decoración</p></div>
                     <div id="configIcons"> 
-                        <img id="confingIcon" src="/images/myProfile.png">
-                        <img id="confingIcon" src="/images/config.png">
+                       <a href="/profile"><img id="confingIcon" src="/images/myProfile.png"></a>
+                       <a href="/mypicupload"><img id="confingIcon" src="/images/config.png"></a>
                     </div>
                 </div>
             </div>
@@ -36,6 +39,15 @@
 </div>
 
 <!-- Photo Grid -->
+<section>
+  <h2>Upload your photo</h2>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="text" name="name">
+    <input type="file" name="photo">
+    <input type="text" name="_id" value="{{this.user._id}}">
+    <input type="submit" value="Save">
+  </form>
+</section>
 
   {{#each pictures}}
     <img id="{{ this._id }}"  class="prueba" src="{{ this.path }}" alt="{{ this.originalName }}" />
