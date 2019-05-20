@@ -32,6 +32,64 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>     
   <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js'></script>
   <script src="/javascripts/script.js"></script>
+
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    var updatePostStats = {
+        Like: function (postId) {
+            document.querySelector('#likes-count-' + postId).textContent++;
+        },
+
+        Unlike: function(postId) {
+            document.querySelector('#likes-count-' + postId).textContent--;
+        }
+    };
+
+
+    var toggleButtonText = {
+        Like: function(button) {
+            button.textContent = "Unlike";
+        },
+
+        Unlike: function(button) {
+            button.textContent = "Like";
+        }
+    };
+
+    var actOnPost = function (event) {
+        var postId = event.target.dataset.postId;
+        var action = event.target.textContent.trim();
+        toggleButtonText[action](event.target);
+        updatePostStats[action](postId);
+        axios.post('/picture/' + postId + '/act',
+                { action: action, socketId: socketId });
+    };
+</script>
+
+
+
+<script src="https://js.pusher.com/4.4/pusher.min.js"></script>
+
+<script>
+    var pusher = new Pusher('13c943dba30d6e63edb1', {
+        cluster: 'eu'
+    });
+    var socketId;
+
+    // retrieve the socket ID on successful connection
+    pusher.connection.bind('connected', function() {
+        socketId = pusher.connection.socket_id;
+    });
+
+    var channel = pusher.subscribe('post-events');
+    channel.bind('postAction', function(data) {
+        // log message data to console - for debugging purposes
+        console.log(data);
+        var action = data.action;
+        updatePostStats[action](data.postId);
+    });
+</script>
+
 </body>
 
 </html>

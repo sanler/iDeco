@@ -35,8 +35,13 @@
    </div>
 <div class="containerPic">
   <div class="container_thePicture" >
-  <img  class="pic" id="{{ picture._id }}"  src="{{ picture.path }}" alt="{{ picture.originalName }}" />
-  <a>Me gusta</a>
+        <img  class="pic" id="{{ picture._id }}"  src="{{ picture.path }}" alt="{{ picture.originalName }}" />
+        <div class="row">
+            <button onclick="actOnPost(event);"
+                        data-post-id="{{ picture._id }}">Like
+            </button>
+            <span id="likes-count-{{ picture._id }}">{{ picture.likes_count }}</span>
+        </div>
   </div>
   
 </div>

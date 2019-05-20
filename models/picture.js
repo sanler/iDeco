@@ -7,7 +7,8 @@ const pictureSchema = new Schema({
   originalName: String,
   description:{ type : String , maxlength: 200},
   category:String,
-  owner:  { type : Schema.Types.ObjectId, ref: 'user' } 
+  owner:  { type : Schema.Types.ObjectId, ref: 'user' },
+  likes_count: Number
 }, {
   timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
 });

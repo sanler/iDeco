@@ -39,15 +39,6 @@
 </div>
 
 <!-- Photo Grid -->
-<section>
-  <h2>Upload your photo</h2>
-  <form action="/upload" method="post" enctype="multipart/form-data">
-    <input type="text" name="name">
-    <input type="file" name="photo">
-    <input type="text" name="_id" value="{{this.user._id}}">
-    <input type="submit" value="Save">
-  </form>
-</section>
 
   {{#each pictures}}
     <img id="{{ this._id }}"  class="prueba" src="{{ this.path }}" alt="{{ this.originalName }}" />

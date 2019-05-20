@@ -172,6 +172,28 @@ router.get("/mypicupload", ensureLogin.ensureLoggedIn('/'), (req, res) => {
      
 });
 
+
+router.post("/picture/:id/act", ensureLogin.ensureLoggedIn('/'), (req, res) => {
+  const action = req.body.action;
+  const counter = action === 'Like' ? 1 : -1;
+  Picture.updateOne({_id: req.params.id}, {$inc: {likes_count: counter}}, {}, (err, numberAffected) => {
+      let Pusher = require('pusher');
+
+      let pusher = new Pusher({
+          appId: "782170",
+          key: "13c943dba30d6e63edb1",
+          secret: "98e3c6aebd88da1bceba",
+          cluster: 'eu'
+      });
+console.log( '???????????'+process.env.PUSHER_APP_ID);
+      let payload = { action: action, postId: req.params.id };
+      pusher.trigger('post-events', 'postAction', payload, req.body.socketId);
+      res.send('');
+  });
+
+});
+
+
 router.get("/picture/:id", ensureLogin.ensureLoggedIn('/'), (req, res) => {
 
   Picture.findById(mongoose.Types.ObjectId(req.params.id))
@@ -205,20 +227,28 @@ router.get("/picture/:id", ensureLogin.ensureLoggedIn('/'), (req, res) => {
         res.render('home',{pictures :pictures, user: req.user })
       })*/
   
+
+
+
 });
+
+
+
+
 /******** LOGGIN PRIVATE ROUTES **************/
 
 
 const upload = multer({ dest: '../public/uploads/' });
 
 router.post('/upload', upload.single('photo'), (req, res) => {
-console.log(req._id);
+console.log('LIKESSSSS'+req.body.likes_count);
   const pic = new Picture({
     name: req.body.name,
     path: `/uploads/${req.file.filename}`,
     originalName: req.file.originalname,
     description: req.body.description,
-    owner: req.body._id
+    owner: req.body._id,
+    likes_count:req.body.likes_count
   });
 
   pic.save((err) => {
